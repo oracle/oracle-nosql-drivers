@@ -1,34 +1,46 @@
 /*-
  *
  *  This file is part of Oracle NoSQL Database
- *  Copyright (C) 2011, 2013 Oracle and/or its Affiliates
+ *  Copyright (C) 2011, 2014 Oracle and/or its affiliates.  All rights reserved.
  *
- *  Oracle NoSQL Database is free software: you can redistribute it and/or
- *  modify it under the terms of the GNU Affero General Public License
- *  as published by the Free Software Foundation, version 3.
+ * If you have received this file as part of Oracle NoSQL Database the
+ * following applies to the work as a whole:
  *
- *  Oracle NoSQL Database is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Affero General Public License for more details.
+ *   Oracle NoSQL Database server software is free software: you can
+ *   redistribute it and/or modify it under the terms of the GNU Affero
+ *   General Public License as published by the Free Software Foundation,
+ *   version 3.
  *
- *  You should have received a copy of the GNU Affero General Public
- *  License in the LICENSE file along with Oracle NoSQL Database.  If not,
- *  see <http://www.gnu.org/licenses/>.
+ *   Oracle NoSQL Database is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *   Affero General Public License for more details.
  *
- *  For more information please contact:
+ * If you have received this file as part of Oracle NoSQL Database Client or
+ * distributed separately the following applies:
  *
- *  Vice President Legal, Development
- *  Oracle America, Inc.
- *  5OP-10
- *  500 Oracle Parkway
- *  Redwood Shores, CA 94065
+ *   Oracle NoSQL Database client software is free software: you can
+ *   redistribute it and/or modify it under the terms of the Apache License
+ *   as published by the Apache Software Foundation, version 2.0.
  *
- *  or
+ * You should have received a copy of the GNU Affero General Public License
+ * and/or the Apache License in the LICENSE file along with Oracle NoSQL
+ * Database client or server distribution.  If not, see
+ * <http://www.gnu.org/licenses/>
+ * or
+ * <http://www.apache.org/licenses/LICENSE-2.0>.
  *
- *  berkeleydb-info_us@oracle.com
+ * An active Oracle commercial licensing agreement for this product supersedes
+ * these licenses and in such case the license notices, but not the copyright
+ * notice, may be removed by you in connection with your distribution that is
+ * in accordance with the commercial licensing terms.
+ *
+ * For more information please contact:
+ *
+ * berkeleydb-info_us@oracle.com
  *
  */
+
 
 #include <R.h>
 
@@ -76,11 +88,10 @@ static void rkvAvroValueFinalizer(SEXP ptr);
 static void release_rkvItearator(rkv_iterator_t *rkvIterator);
 static void release_avro_fields (rkv_avro_field *fields, int nFields);
 
-SEXP rkv_open_store(SEXP kvhome, SEXP host, SEXP port, SEXP kvname) {
+SEXP rkv_open_store(SEXP kvclient_jar, SEXP host, SEXP port, SEXP kvname) {
     kv_store_t *store = NULL;
     kv_error_t err;
-    const char *l_host, *l_kvname, *l_classpath;
-    char path[512];
+    const char *l_host, *l_kvname, *kvclient_path_to_jar;
     int l_port;
 
     /* Check input parameters */
@@ -95,14 +106,14 @@ SEXP rkv_open_store(SEXP kvhome, SEXP host, SEXP port, SEXP kvname) {
     }
     l_kvname = CHAR(STRING_ELT(kvname, 0));
 
-    if (!isValidString(kvhome) || STRING_ELT(kvhome, 0) == NA_STRING) {
-        ERROR_INVALID_ARGUMENT("kvhome");
+    if (!isValidString(kvclient_jar) || 
+        STRING_ELT(kvclient_jar, 0) == NA_STRING) {
+        ERROR_INVALID_ARGUMENT("kvclient_jar");
     }
-    l_classpath = CHAR(STRING_ELT(kvhome, 0));
+    kvclient_path_to_jar = CHAR(STRING_ELT(kvclient_jar, 0));
 
-    memset(path, 0, sizeof(path));
-    sprintf(path, "%s/lib/kvclient.jar", (char*)l_classpath);
-    err = r_kvstore_open(path, l_kvname, l_host, l_port, &store);
+    err = r_kvstore_open(kvclient_path_to_jar, l_kvname, 
+                         l_host, l_port, &store);
     if (err != KV_SUCCESS) {
         return R_NilValue;
     }

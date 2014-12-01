@@ -28,7 +28,7 @@ Build and install the RKVStore library:
  * Launch R console and run demo programs.
 ```
    > library("rkvstore")
-   > Sys.setenv(KVHOME="<path-to-kvclient-home-dir>")
+   > Sys.setenv(KVCLIENT_PATH_TO_JAR="<path-to-kvclient-jar>")
    > demo(demo_basic, package = "rkvstore")
    > demo(demo_avro, package = "rkvstore")
    > demo(demo_sample, package = "rkvstore")

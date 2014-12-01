@@ -1,45 +1,53 @@
 #
 #
 #  This file is part of Oracle NoSQL Database
-#  Copyright (C) 2011, 2013 Oracle and/or its affiliates.  All rights reserved.
+#  Copyright (C) 2011, 2014 Oracle and/or its affiliates.  All rights reserved.
 #
-#  Oracle NoSQL Database is free software: you can redistribute it and/or
-#  modify it under the terms of the GNU Affero General Public License
-#  as published by the Free Software Foundation, version 3.
+# If you have received this file as part of Oracle NoSQL Database the
+# following applies to the work as a whole:
 #
-#  Oracle NoSQL Database is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-#  Affero General Public License for more details.
+#   Oracle NoSQL Database server software is free software: you can
+#   redistribute it and/or modify it under the terms of the GNU Affero
+#   General Public License as published by the Free Software Foundation,
+#   version 3.
 #
-#  You should have received a copy of the GNU Affero General Public
-#  License in the LICENSE file along with Oracle NoSQL Database.  If not,
-#  see <http://www.gnu.org/licenses/>.
+#   Oracle NoSQL Database is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#   Affero General Public License for more details.
 #
-#  An active Oracle commercial licensing agreement for this product
-#  supercedes this license.
+# If you have received this file as part of Oracle NoSQL Database Client or
+# distributed separately the following applies:
 #
-#  For more information please contact:
+#   Oracle NoSQL Database client software is free software: you can
+#   redistribute it and/or modify it under the terms of the Apache License
+#   as published by the Apache Software Foundation, version 2.0.
 #
-#  Vice President Legal, Development
-#  Oracle America, Inc.
-#  5OP-10
-#  500 Oracle Parkway
-#  Redwood Shores, CA 94065
+# You should have received a copy of the GNU Affero General Public License
+# and/or the Apache License in the LICENSE file along with Oracle NoSQL
+# Database client or server distribution.  If not, see
+# <http://www.gnu.org/licenses/>
+# or
+# <http://www.apache.org/licenses/LICENSE-2.0>.
 #
-#  or
+# An active Oracle commercial licensing agreement for this product supersedes
+# these licenses and in such case the license notices, but not the copyright
+# notice, may be removed by you in connection with your distribution that is
+# in accordance with the commercial licensing terms.
 #
-#  berkeleydb-info_us@oracle.com
+# For more information please contact:
+#
+# berkeleydb-info_us@oracle.com
 #
 #
 
 rkv_open_store <- function(host="localhost", port=5000, kvname="kvstore") {
-    if (Sys.getenv("KVHOME") == "") {
-        print("Please set the environment variable [KVHOME] to the directory where Oracle NoSQL Database binaries are installed.");
+    if (Sys.getenv("KVCLIENT_PATH_TO_JAR") == "") {
+        print("Please set the environment variable KVCLIENT_PATH_TO_JAR to the path to the kvclient.jar.");
         return (NULL)
     }
-    home <- Sys.getenv("KVHOME");
-    .Call(".rkv_open_store", home, host, port, kvname)
+    kvclient <- Sys.getenv("KVCLIENT_PATH_TO_JAR");
+    .Call(".rkv_open_store", kvclient, host, port, kvname)
 }
 
 rkv_close_store <- function(store) {
