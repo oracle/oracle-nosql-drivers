@@ -1,0 +1,15 @@
+{
+   "type": "record",
+   "name": "UserInfo",
+   "namespace": "schema",
+   "fields": [
+       {"name": "name", "type": "string", "default": ""},
+       {"name": "age", "type": "int", "default": 0},
+       {"name": "address", "type": "string", "default": ""},
+       {"name": "phone", "type": "string", "default": ""},
+       {"name": "expired", "type": "boolean", "default": false},
+       {"name": "time", "type": "long", "default": 0},
+       {"name": "income", "type": "double", "default": 0.0}
+   ]
+}
+

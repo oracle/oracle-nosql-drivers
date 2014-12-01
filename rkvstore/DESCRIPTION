@@ -1,0 +1,9 @@
+Package: rkvstore
+Type: Package
+Title: R-KVStore driver
+Version: 0.0.1
+Author: 
+Maintainer: Berkeley DB <berkeleydb-info_us@oracle.com>
+Description: Provides a simple R driver for Oracle NoSQL Database
+License: Apache License Version 2.0
+LazyLoad: yes
