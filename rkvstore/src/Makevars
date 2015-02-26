@@ -1,2 +1,2 @@
 PKG_CFLAGS=-Wall -fPIC -I$(AVRO_LIB_HOME)/include -I$(KV_C_LIB_HOME)/include 
-PKG_LIBS=-L$(AVRO_LIB_HOME)/lib -lavro -L$(KV_C_LIB_HOME)/lib -lkvstore
+PKG_LIBS=-L$(AVRO_LIB_HOME)/lib -lavro -L$(KV_C_LIB_HOME)/lib -lkvstore -Wl,-rpath,/usr/local/lib

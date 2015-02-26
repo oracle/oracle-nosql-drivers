@@ -4,7 +4,7 @@
 A simple R driver to access Oracle NoSQL Database. It is based on the Oracle NoSQL C JNI driver and provides subset of Key/Value APIs, table APIs are not supported in this package yet.
 
 ### Prerequisites
-Install Oracle NoSQL C JNI Driver
+Install Oracle NoSQL C Key-Value Driver
 
  * Download source from [Oracle NoSQL Download](http://www.oracle.com/technetwork/database/database-technologies/nosqldb/downloads/index.html)  (Currently use 3.0.14)
  * Build and install it, please follow the BUILDING.html in the Oracle NoSQL C JNI driver. The prerequisite is AVRO C library.
