@@ -23,7 +23,8 @@ Build and install the RKVStore library:
  * Start KVLite on localhost:5000
  * Add the avro schema "schema.UserInfo" to kvstore using below command, the userinfo.avsc is located in "demo" directory.
 ```
-   java -jar $KVHOME/lib/kvcli.jar -host localhost -port 5000 ddl add-schema -file $RKVSTORE_INSTALL_DIR/demo/userinfo.avsc
+   export RKVSTORE_DIR=<path-to-rkvstore-dir>
+   java -jar $KVHOME/lib/kvcli.jar -host localhost -port 5000 ddl add-schema -file $RKVSTORE_DIR/demo/userinfo.avsc
 ```
  * Launch R console and run demo programs.
 ```
